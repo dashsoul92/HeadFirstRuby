@@ -32,8 +32,7 @@ until number_of_guesses == 10 || guessed_it
 
   number_of_guesses += 1
 
-  # Compare the guess to the target.
-  # Print the appropriate message.
+  # Compare the guess to the target and prints the appropriate message.
   if guess < random_number
     puts "Oops. Your guess was to LOW.", ""
   elsif guess > random_number
