@@ -4,7 +4,27 @@
 
 class Bird
 
-  attr_accessor :name, :age
+  attr_reader :name, :age
+
+  def name=(new_value)
+    if new_value == ""
+      raise "Name can't be blank!" # A built-in ruby method used to report errors.
+    elsif new_value.is_a? Integer
+      raise "Name can't be a number!" # If raise is called, the program will immediately hault.
+    else
+      @name = new_value
+    end
+  end
+
+  def age=(new_value)
+    if new_value.is_a? String
+      raise "Age cannot be a string!"
+    elsif new_value < 0
+      raise "An age of #{new_value} isn't valid!"
+    else new_value.is_a? Integer
+      @age = new_value
+    end
+  end
 
   def talk
     puts "#{@name} says Chirp! Chirp!"
@@ -21,30 +41,28 @@ class Bird
 end
 
 class Dog
-  # An accessor method, known as an attribute writer, which writes values to the instance variable.
+  # An accessor method, known as an attribute writer, writes values to the instance variable.
   def name=(new_value)
     # We use the @ sign to tell ruby that the variable is an instance variable.
     if new_value == ""
-      puts "Name can't be blank."
+      raise "Name can't be blank!"
     else
       @name = new_value
     end
   end
-  # An accessor method, known as an attribute reader, which reads values from the instance variable.
+  # An accessor method, known as an attribute reader, reads values from the instance variable.
   def name
     @name
   end
 
   def age=(new_value)
     if new_value.is_a? String
-      puts "Age cannot be a string!"
+      raise "Age cannot be a string!"
     elsif new_value < 0
-      puts "An age of #{new_value} isn't valid!"
+      raise "An age of #{new_value} isn't valid!"
     else
       if new_value.is_a? Integer
         @age = new_value
-      else
-        puts "An age of #{new_value} isn't valid! The age must be a whole number."
       end
     end
   end
@@ -105,7 +123,7 @@ dog.move("yard")
 dog.report_age
 puts
 
-bird.name = "Tweety"
+bird.name = ""
 bird.age = 2
 bird.move("tree")
 bird.talk
