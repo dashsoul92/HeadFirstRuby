@@ -1,4 +1,5 @@
 class Vehicle
+
   attr_accessor :odometer, :gas_used
 
   def accelerate
@@ -16,6 +17,7 @@ class Vehicle
   def mileage
     return @odometer / @gas_used
   end
+
 end
 
 # A "less-than" symbol means "inherits from" or "specializes".
@@ -26,9 +28,29 @@ end
 
 class Truck < Vehicle
 
+  attr_accessor :cargo
+
+  def load_bed(contents)
+    puts "Securing #{contents} in the truck bed."
+    if contents == ""
+      raise "Contents cannot be an empty string!"
+    elsif contents.is_a? Integer
+      raise "#{contents} is not a valid string!"
+    else
+      @cargo = contents
+    end
+  end
+
 end
 
 class Motorcycle < Vehicle
+
+  # This method will overide the superclass's steer method.
+  # Ruby, by default, will check to see if the called method is defined in a sublclass, and if it is, it will call the method.
+  # If the method isn't found in the subclass, Ruby will look for it in the superclass.
+  def steer
+    puts "Turn front wheel."
+  end
 
 end
 
@@ -39,10 +61,14 @@ print "Lifetime MPG: "
 puts car.mileage, ""
 
 truck = Truck.new
+truck.load_bed("mattresses")
+puts "The contents are: #{truck.cargo}"
 truck.accelerate
 truck.sound_horn
+truck.steer
 puts
 
 motorcycle = Motorcycle.new
 motorcycle.sound_horn
+motorcycle.accelerate
 motorcycle.steer
