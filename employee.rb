@@ -26,6 +26,11 @@ class SalariedEmployee < Employee
 
   attr_reader :salary
 
+  # The first way to define a class method is to write the class name, followed by a dot opperator, and then the name of the method.
+  def SalariedEmployee.say_hello
+    puts "Hello, Bob!"
+  end
+
   def salary=(salary)
     if salary < 0
       raise "A salary of #{salary} isn't valid!"
@@ -60,6 +65,24 @@ end
 class HourlyEmployee < Employee
 
   attr_reader :hourly_wage, :hours_per_week
+
+  # The second way to define a class method is to use the keyword self, followed by a dot opperator, and then the method's name.
+  def self.say_hello
+    puts "Hello, Bob!"
+  end
+
+  # The creation of a factory method which generates the starting wage and hours worked for the object.
+  def self.security_guard(name = "Anonymous")
+    HourlyEmployee.new(name, 19.25, 30)
+  end
+
+  def self.cashier(name = "Anonymous")
+    HourlyEmployee.new(name, 12.75, 25)
+  end
+
+  def self.janitor(name = "Anonymous")
+    HourlyEmployee.new(name, 10.50, 20)
+  end
 
   def hourly_wage=(hourly_wage)
     if hourly_wage < 0
@@ -97,3 +120,10 @@ bob.print_pay_stub
 
 burt = HourlyEmployee.new("Burt", 11.00, 40.00)
 burt.print_pay_stub
+
+anonymous = HourlyEmployee.security_guard()
+anonymous.print_pay_stub
+edwin = HourlyEmployee.janitor("Edwin Burgess")
+edwin.print_pay_stub
+ivan = HourlyEmployee.cashier("Ivan Stokes")
+ivan.print_pay_stub
