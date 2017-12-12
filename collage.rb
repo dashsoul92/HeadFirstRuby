@@ -29,7 +29,23 @@ reviews = relevant_lines.reject { |line| line.include?("--") }
 #     end
 #   end
 
-reviews.each { |line| puts line }
+def find_adjective(string)
+  words = string.split(" ")
+  # Here we're finding the word that proceeds an adjective.
+  index = words.find_index("is")
+  # Here we're returning the word, an adjective, that follows the word is.
+  words[index + 1]
+end
+
+# Take all of the elements from the reviews object and extract the adjectives from the object.
+# Save the extracted elements, which are now capitalized and enclosed within single quotation marks, to a new object called adjectives.
+adjectives = reviews.map do |review|
+  adjective = find_adjective(review)
+  "'#{adjective.capitalize}'"
+end
+
+puts "The critics agree, Truncated is:"
+puts adjectives
 
 # You should close a file whenever you're done using it.
 # If you don't close a file, then if you try to read from it multiple times, it will show an empty file.
